@@ -6,7 +6,6 @@ import defaultTheme from '../../assets/styles/themes/default';
 import { Container } from './styles';
 
 import Header from '../Header';
-import ContactList from '../ContactList';
 import Routes from '../../Routes';
 
 function App() {
