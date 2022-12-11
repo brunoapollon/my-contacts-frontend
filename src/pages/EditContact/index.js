@@ -1,3 +1,9 @@
-export default function EditContact () {
-  return 'Edit Contact'
+import PageHeader from "../../components/PageHeader";
+
+export default function EditContact() {
+  return (
+    <PageHeader
+      title="Editar Bruno Lopes"
+    />
+  )
 }
