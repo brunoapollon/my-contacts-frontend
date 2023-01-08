@@ -78,5 +78,5 @@ export default function Home() {
         </Card>
       </ListContainer>
     </Container>
-  )
+  );
 }
