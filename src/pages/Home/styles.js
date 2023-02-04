@@ -27,10 +27,9 @@ export const Header = styled.header`
   }
 `;
 
-export const ListContainer = styled.div`
+export const ListHeader = styled.header`
   margin-top: 24px;
-  header {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
     button {
       background: transparent;
       border: none;
@@ -43,7 +42,6 @@ export const ListContainer = styled.div`
       font-weight: bold;
       color: ${({ theme }) => theme.colors.primary.main};
     }
-  }
 `;
 
 export const Card = styled.div`
