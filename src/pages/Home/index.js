@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import {
   Container, Header, ListContainer, Card, InputSearchContaier,
 } from './styles';
@@ -7,13 +8,28 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
 export default function Home() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/contacts')
+      .then(async (response) => {
+        const contactsFetched = await response.json();
+        setContacts(contactsFetched);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <Container>
       <InputSearchContaier>
         <input type="text" placeholder="Pesquisar nome..." />
       </InputSearchContaier>
       <Header>
-        <strong>3 Contatos</strong>
+        <strong>
+          {contacts.length}
+          {' '}
+          {contacts.length === 1 ? 'Contato' : 'Contatos'}
+        </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
       <ListContainer>
@@ -23,24 +39,28 @@ export default function Home() {
             <img src={arrow} alt="arrow" />
           </button>
         </header>
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Bruno Lopes</strong>
-              <small>instagram</small>
+        {contacts.map((contact) => (
+          <Card key={contact.id}>
+            <div className="info">
+              <div className="contact-name">
+                <strong>{contact.name}</strong>
+                {contact.category_name && (
+                  <small>{contact.category_name}</small>
+                )}
+              </div>
+              <span>{contact.email}</span>
+              <span>{contact.phone}</span>
             </div>
-            <span>eusoubruno7@gmail.com</span>
-            <span>(41 99999-9999)</span>
-          </div>
-          <div className="actions">
-            <Link to="/edit/1">
-              <img src={edit} alt="edit" />
-            </Link>
-            <button type="button">
-              <img src={trash} alt="trash" />
-            </button>
-          </div>
-        </Card>
+            <div className="actions">
+              <Link to={`/edit/${contact.id}`}>
+                <img src={edit} alt="edit" />
+              </Link>
+              <button type="button">
+                <img src={trash} alt="trash" />
+              </button>
+            </div>
+          </Card>
+        ))}
       </ListContainer>
     </Container>
   );
