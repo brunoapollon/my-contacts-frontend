@@ -10,6 +10,11 @@ import trash from '../../assets/images/icons/trash.svg';
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredContacts = contacts.filter((contact) => (
+    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ));
 
   useEffect(() => {
     fetch(`http://localhost:3001/contacts?orderby=${orderBy}`)
@@ -22,26 +27,35 @@ export default function Home() {
 
   const handleToggleOrderBy = useCallback(() => (setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'))), []);
 
+  const handleChangeSearchTerm = useCallback((value) => (setSearchTerm(value)), []);
+
   return (
     <Container>
       <InputSearchContaier>
-        <input type="text" placeholder="Pesquisar nome..." />
+        <input
+          value={searchTerm}
+          type="text"
+          placeholder="Pesquisar nome..."
+          onChange={(event) => handleChangeSearchTerm(event.target.value)}
+        />
       </InputSearchContaier>
       <Header>
         <strong>
-          {contacts.length}
+          {filteredContacts.length}
           {' '}
-          {contacts.length === 1 ? 'Contato' : 'Contatos'}
+          {filteredContacts.length === 1 ? 'Contato' : 'Contatos'}
         </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
-      <ListHeader orderBy={orderBy}>
-        <button type="button" onClick={handleToggleOrderBy}>
-          <span>Nome</span>
-          <img src={arrow} alt="arrow" />
-        </button>
-      </ListHeader>
-      {contacts.map((contact) => (
+      {filteredContacts.length > 0 && (
+        <ListHeader orderBy={orderBy}>
+          <button type="button" onClick={handleToggleOrderBy}>
+            <span>Nome</span>
+            <img src={arrow} alt="arrow" />
+          </button>
+        </ListHeader>
+      )}
+      {filteredContacts.map((contact) => (
         <Card key={contact.id}>
           <div className="info">
             <div className="contact-name">
