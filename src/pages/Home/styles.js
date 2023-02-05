@@ -42,6 +42,10 @@ export const ListHeader = styled.header`
       font-weight: bold;
       color: ${({ theme }) => theme.colors.primary.main};
     }
+
+    img {
+      transform: ${({ orderBy }) => (orderBy === 'asc' ? 'rotate(180deg)' : '')};
+    }
 `;
 
 export const Card = styled.div`
