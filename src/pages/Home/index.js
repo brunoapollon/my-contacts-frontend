@@ -30,9 +30,9 @@ export default function Home() {
         const response = await fetch(`http://localhost:3001/contacts?orderby=${orderBy}`);
         const contactsFetched = await response.json();
         setContacts(contactsFetched);
-        setIsLoading(false);
       } catch (err) {
         console.log(err);
+      } finally {
         setIsLoading(false);
       }
     }
