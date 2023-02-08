@@ -28,8 +28,8 @@ export default function Home() {
     setIsLoading(true);
     async function loadData() {
       try {
-        const contacts = await ContactService.listContacts(orderBy)
-        setContacts(contacts);
+        const contactsList = await ContactService.listContacts(orderBy);
+        setContacts(contactsList);
       } catch (err) {
         console.log(err);
       } finally {
