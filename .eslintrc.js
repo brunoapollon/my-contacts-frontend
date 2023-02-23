@@ -11,8 +11,21 @@ module.exports = {
   overrides: [
   ],
   parserOptions: {
-    ecmaVersion: 'latest',
+    requireConfigFile: false,
+    ecmaVersion: 12,
     sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true,
+    },
+    babelOptions: {
+      plugins: [
+        [
+          '@babel/plugin-proposal-decorators',
+          { legacy: true },
+        ],
+      ],
+    },
+
   },
   plugins: [
     'react',
