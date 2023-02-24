@@ -1,3 +1,5 @@
+import APIError from '../../errors/ApiError';
+
 class HttpClient {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
@@ -8,6 +10,7 @@ class HttpClient {
 
     const contentType = response.headers.get('Content-Type');
     let body = null;
+
     if (contentType.includes('json')) {
       body = await response.json();
     }
@@ -16,9 +19,7 @@ class HttpClient {
       return body;
     }
 
-    const errorMessage = body?.error || `${response.status} - ${response.statusText}`;
-
-    throw new Error(errorMessage);
+    throw new APIError(response, body);
   }
 }
 
