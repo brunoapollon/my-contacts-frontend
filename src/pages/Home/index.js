@@ -42,7 +42,7 @@ export default function Home() {
   useEffect(() => {
     setIsLoading(true);
     loadData();
-  }, [orderBy, loadData]);
+  }, [loadData]);
 
   const handleToggleOrderBy = useCallback(() => (setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'))), []);
 
