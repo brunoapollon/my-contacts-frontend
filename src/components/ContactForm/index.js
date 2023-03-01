@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
 import useErrors from '../../hooks/useErrors';
