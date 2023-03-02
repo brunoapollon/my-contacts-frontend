@@ -5,7 +5,14 @@ import {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
 import {
-  Container, Header, ListHeader, Card, InputSearchContaier, ErrorContainer, EmptyListContainer, SearchNotFoundContainer,
+  Container,
+  Header,
+  ListHeader,
+  Card,
+  InputSearchContaier,
+  ErrorContainer,
+  EmptyListContainer,
+  SearchNotFoundContainer,
 } from './styles';
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
