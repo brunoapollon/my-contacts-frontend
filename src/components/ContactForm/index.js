@@ -15,9 +15,10 @@ import { ButtonContainer, Form } from './styles';
 
 const propTypes = {
   buttonLabel: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-export default function ContactForm({ buttonLabel }) {
+export default function ContactForm({ buttonLabel, onSubmit }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -39,7 +40,7 @@ export default function ContactForm({ buttonLabel }) {
       try {
         const categoriesList = await CategoryService.listCategories();
         setCategories(categoriesList);
-      } catch {} finally {
+      } catch { } finally {
         setIsLoadingCategories(false);
       }
     }
@@ -70,15 +71,15 @@ export default function ContactForm({ buttonLabel }) {
     setPhone(formatPhone(event.target.value));
   }
 
-  const onSubmit = useCallback((event) => {
+  const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    console.log({
-      name, email, phone, category: categoryId,
+    onSubmit({
+      name, email, phone, categoryId,
     });
   }, [name, email, phone, categoryId]);
 
   return (
-    <Form onSubmit={onSubmit} noValidate>
+    <Form onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
           error={getErrorMessageByFieldName('name')}
