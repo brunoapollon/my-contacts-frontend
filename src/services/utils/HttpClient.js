@@ -22,6 +22,7 @@ class HttpClient {
   }
 
   async makeRequest(path, options) {
+    await delay(1500);
     const headers = new Headers();
 
     if (options.body) {
