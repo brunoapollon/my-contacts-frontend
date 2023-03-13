@@ -12,7 +12,6 @@ import FormGroup from '../FormGroup';
 import Input from '../Input';
 import Select from '../Select';
 import { ButtonContainer, Form } from './styles';
-import Spinner from '../Spinner';
 
 const propTypes = {
   buttonLabel: PropTypes.string.isRequired,
@@ -127,8 +126,8 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
         </Select>
       </FormGroup>
       <ButtonContainer>
-        <Button type="Submit" disabled={!isValidSubmit || isSubmitting}>
-          {!isSubmitting ? buttonLabel : <Spinner size={16} />}
+        <Button type="Submit" disabled={!isValidSubmit} isLoading={isSubmitting}>
+          {buttonLabel}
         </Button>
       </ButtonContainer>
     </Form>
