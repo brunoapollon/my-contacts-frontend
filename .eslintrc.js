@@ -39,6 +39,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'class-methods-use-this': 'off',
+    'react/jsx-no-bind': 'off',
     'no-empty': ['error', { allowEmptyCatch: true }],
   },
 };

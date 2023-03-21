@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import PageHeader from '../../components/PageHeader';
 import ContactForm from '../../components/ContactForm';
 import ContactService from '../../services/ContactService';
+import toast from '../../utils/toas';
 
 export default function NewContact() {
   const handleSubmit = useCallback(async (formData) => {
@@ -12,10 +13,17 @@ export default function NewContact() {
         phone: formData.phone,
         category_id: formData.categoryId,
       };
-      const response = await ContactService.createContact(contact);
-      console.log(response);
+      await ContactService.createContact(contact);
+
+      toast({
+        type: 'success',
+        text: 'Contato cadastrado!',
+      });
     } catch {
-      alert('ocorreu um erro!');
+      toast({
+        type: 'danger',
+        text: 'Ocorreu um erro ao cadastrar o contato!',
+      });
     }
   }, []);
 
