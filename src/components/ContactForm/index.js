@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
-import { useCallback, useEffect, useState } from 'react';
+import {
+  forwardRef, useCallback, useEffect, useState, useImperativeHandle,
+} from 'react';
 
 import PropTypes from 'prop-types';
 import useErrors from '../../hooks/useErrors';
@@ -18,7 +20,7 @@ const propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default function ContactForm({ buttonLabel, onSubmit }) {
+const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -26,6 +28,15 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
   const [categories, setCategories] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    setFieldsValue: (contact) => {
+      setName(contact.name);
+      setEmail(contact.email);
+      setPhone(contact.phone);
+      setCategoryId(contact.category_id);
+    },
+  }), []);
 
   const {
     errors,
@@ -83,7 +94,7 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
     setPhone('');
     setCategoryId('');
     setIsSubmitting(false);
-  }, [name, email, phone, categoryId]);
+  }, [name, email, phone, categoryId, onSubmit]);
 
   return (
     <Form onSubmit={handleSubmit} noValidate>
@@ -136,6 +147,8 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
       </ButtonContainer>
     </Form>
   );
-}
+});
 
 ContactForm.propTypes = propTypes;
+
+export default ContactForm;
