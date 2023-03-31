@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { toastEventManager } from '../../../utils/toas';
+import { toastEventManager } from '../../../utils/toast';
 import ToastMessage from '../ToastMessage';
 import { Container } from './style';
 

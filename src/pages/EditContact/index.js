@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import ContactForm from '../../components/ContactForm';
 import PageHeader from '../../components/PageHeader';
 import ContactService from '../../services/ContactService';
-import toast from '../../utils/toas';
+import toast from '../../utils/toast';
 import Loader from '../../components/Loader';
 
 export default function EditContact() {

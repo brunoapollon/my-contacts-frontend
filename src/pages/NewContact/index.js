@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import PageHeader from '../../components/PageHeader';
 import ContactForm from '../../components/ContactForm';
 import ContactService from '../../services/ContactService';
-import toast from '../../utils/toas';
+import toast from '../../utils/toast';
 
 export default function NewContact() {
   const contactFormRef = useRef(null);
