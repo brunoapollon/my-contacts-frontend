@@ -23,6 +23,7 @@ import magnifierQuestion from '../../assets/images/magnifier-question.svg';
 
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
+import Modal from '../../components/Modal';
 import ContactService from '../../services/ContactService';
 
 export default function Home() {
@@ -66,6 +67,13 @@ export default function Home() {
   return (
     <Container>
       <Loader isLoading={isLoading} />
+      <Modal
+        danger
+        title='Tem certeza que deseja remover o contato "Bruno Lopes"'
+        confirmLabel="Deletar"
+      >
+        asdddddddd
+      </Modal>
       {contacts.length > 0 && (
         <InputSearchContaier>
           <input
