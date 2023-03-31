@@ -10,11 +10,15 @@ class ContactService {
   }
 
   createContact(contact) {
-    return this.httpClient.post('/contacsts', { body: contact });
+    return this.httpClient.post('/contacts', { body: contact });
   }
 
   getContactById(id) {
     return this.httpClient.get(`/contacts/${id}`);
+  }
+
+  updateContact(id, contact) {
+    return this.httpClient.put(`/contacts/${id}`, { body: contact });
   }
 }
 

@@ -1,5 +1,5 @@
 import {
-  useCallback, useEffect, useRef, useState,
+  useEffect, useRef, useState,
 } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import ContactForm from '../../components/ContactForm';
@@ -33,12 +33,28 @@ export default function EditContact() {
     loadContact();
   }, [id, history]);
 
-  const handleSubmit = useCallback(
-    async () => {
-
-    },
-    [],
-  );
+  async function handleSubmit(formData) {
+    try {
+      const contact = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        category_id: formData.categoryId,
+      };
+      const contactEdited = await ContactService.updateContact(id, contact);
+      setContactName(contactEdited?.name);
+      contactFormRef.current?.setFieldsValue(contactEdited);
+      toast({
+        type: 'success',
+        text: 'Contato atualizado!',
+      });
+    } catch {
+      toast({
+        type: 'danger',
+        text: 'Ocorreu um erro ao atualizar o contato!',
+      });
+    }
+  }
 
   return (
     <>
