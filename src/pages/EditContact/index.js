@@ -10,6 +10,7 @@ import Loader from '../../components/Loader';
 
 export default function EditContact() {
   const [isLoading, setIsLoading] = useState(true);
+  const [contactName, setContactName] = useState('');
   const contactFormRef = useRef(null);
 
   const { id } = useParams();
@@ -18,6 +19,7 @@ export default function EditContact() {
     async function loadContact() {
       try {
         const contactData = await ContactService.getContactById(id);
+        setContactName(contactData?.name);
         contactFormRef.current?.setFieldsValue(contactData);
         setIsLoading(false);
       } catch {
@@ -42,7 +44,7 @@ export default function EditContact() {
     <>
       <Loader isLoading={isLoading} />
       <PageHeader
-        title="Editar Bruno Lopes"
+        title={isLoading ? 'Carregando...' : `Editar ${contactName}`}
       />
       <ContactForm
         ref={contactFormRef}
