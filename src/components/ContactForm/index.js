@@ -14,6 +14,7 @@ import FormGroup from '../FormGroup';
 import Input from '../Input';
 import Select from '../Select';
 import { ButtonContainer, Form } from './styles';
+import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 
 const propTypes = {
   buttonLabel: PropTypes.string.isRequired,
@@ -25,8 +26,8 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategories] = useState([]);
-  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+  const [categories, setCategories] = useSafeAsyncState([]);
+  const [isLoadingCategories, setIsLoadingCategories] = useSafeAsyncState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -63,7 +64,7 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
       }
     }
     loadCategories();
-  }, []);
+  }, [setCategories, setIsLoadingCategories]);
 
   function onNameChange(event) {
     const { target: { value: nameChanged } } = event;
