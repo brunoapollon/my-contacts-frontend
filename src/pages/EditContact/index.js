@@ -39,7 +39,7 @@ export default function EditContact() {
       }
     }
     loadContact();
-  }, [id, history, isMounted]);
+  }, [id, history, safeAsyncAction]);
 
   async function handleSubmit(formData) {
     try {
