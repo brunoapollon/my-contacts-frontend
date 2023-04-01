@@ -4,7 +4,7 @@ class ContactMapper {
       name: domainContact.name,
       email: domainContact.email,
       phone: domainContact.phone,
-      category_id: domainContact.categoryId,
+      category_id: domainContact.categoryName,
     };
 
     return persistenceContactParsed;
@@ -12,10 +12,14 @@ class ContactMapper {
 
   toDomain(toPersistenceContact) {
     const domainContactParsed = {
+      id: toPersistenceContact.id,
       name: toPersistenceContact.name,
       email: toPersistenceContact.email,
       phone: toPersistenceContact.phone,
-      categoryId: toPersistenceContact.category_id,
+      category: {
+        id: toPersistenceContact.category_id,
+        name: toPersistenceContact.category_name,
+      },
     };
 
     return domainContactParsed;
