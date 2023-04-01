@@ -1,6 +1,7 @@
 class ContactMapper {
   toPersistence(domainContact) {
     const persistenceContactParsed = {
+      id: domainContact.id,
       name: domainContact.name,
       email: domainContact.email,
       phone: domainContact.phone,
