@@ -12,5 +12,5 @@ export default function useSafeAsyncAction() {
     }
   }, [isMounted]);
 
-  return runSafeAsyncAction();
+  return runSafeAsyncAction;
 }
