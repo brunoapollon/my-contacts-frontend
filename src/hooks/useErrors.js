@@ -16,8 +16,10 @@ export default function useErrors() {
   }, []);
 
   const getErrorMessageByFieldName = useCallback((fieldName) => {
-    setErrors((prevState) => prevState.filter((error) => error.field !== fieldName));
-  }, []);
+    const errorFound = errors.find((error) => error.field === fieldName);
+
+    return errorFound ? errorFound.message : '';
+  }, [errors]);
 
   return {
     errors,
