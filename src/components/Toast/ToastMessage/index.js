@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { Container } from './styles';
 
 import xCircleItem from '../../../assets/images/icons/x-circle.svg';
@@ -26,7 +26,7 @@ const propTypes = {
   isLeaving: PropTypes.bool.isRequired,
 };
 
-export default function ToastMessage({
+function ToastMessage({
   onRemoveMessage, message: {
     id, type, text, duration,
   },
@@ -65,6 +65,8 @@ export default function ToastMessage({
     </Container>
   );
 }
+
+export default memo(ToastMessage);
 
 ToastMessage.propTypes = propTypes;
 ToastMessage.defaultProps = {};
