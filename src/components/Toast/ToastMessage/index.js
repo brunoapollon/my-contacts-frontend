@@ -11,6 +11,7 @@ const ICONS = {
 };
 
 const propTypes = {
+  animatedRef: PropTypes.shape().isRequired,
   onRemoveMessage: PropTypes.func.isRequired,
   message: PropTypes.shape({
     text: PropTypes.string.isRequired,
@@ -22,12 +23,15 @@ const propTypes = {
     ]),
     duration: PropTypes.number,
   }).isRequired,
+  isLeaving: PropTypes.bool.isRequired,
 };
 
 export default function ToastMessage({
   onRemoveMessage, message: {
     id, type, text, duration,
   },
+  isLeaving,
+  animatedRef,
 }) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -49,6 +53,8 @@ export default function ToastMessage({
       onClick={handleRemoveToast}
       tabIndex={0}
       role="button"
+      isLeaving={isLeaving}
+      ref={animatedRef}
     >
       {(type && type !== 'default') && (
         <img src={ICONS[type]} alt="icon" />
