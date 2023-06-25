@@ -1,5 +1,5 @@
 import {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useEffect, useState, useTransition,
 } from 'react';
 import ContactService from '../../services/ContactService';
 import toast from '../../utils/toast';
@@ -13,18 +13,15 @@ export default function useHome() {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [contactBeingDeleted, setContactBeingDeleted] = useState(null);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-
-  const filteredContacts = useMemo(() => (
-    contacts.filter((contact) => (
-      contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ))
-  ), [contacts, searchTerm]);
+  const [filteredContacts, setFilteredContacts] = useState([]);
+  const [isPending, setTransitions] = useTransition();
 
   const loadData = useCallback(async () => {
     try {
       const contactsList = await ContactService.listContacts(orderBy);
       setHasError(false);
       setContacts(contactsList);
+      setFilteredContacts(contactsList);
     } catch {
       setHasError(true);
       setContacts([]);
@@ -40,12 +37,19 @@ export default function useHome() {
 
   const handleToggleOrderBy = useCallback(() => (setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'))), []);
 
-  const handleChangeSearchTerm = useCallback((value) => (setSearchTerm(value)), []);
+  function handleChangeSearchTerm(value) {
+    setSearchTerm(value);
+    setTransitions(() => {
+      setFilteredContacts(contacts.filter((contact) => (
+        contact.name.toLowerCase().includes(value.toLowerCase())
+      )));
+    });
+  }
 
-  function handleDeleteContact(contact) {
+  const handleDeleteContact = useCallback((contact) => {
     setIsDeleteModalVisible(true);
     setContactBeingDeleted(contact);
-  }
+  }, []);
 
   function handleCloseDeteModal() {
     setIsDeleteModalVisible(false);
@@ -93,5 +97,6 @@ export default function useHome() {
     orderBy,
     handleToggleOrderBy,
     handleDeleteContact,
+    isPending,
   };
 }

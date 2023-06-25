@@ -52,7 +52,6 @@ export default function Home() {
       <>
         <ContactsList
           filteredContacts={filteredContacts}
-          isLoadingDelete={isLoadingDelete}
           onToggleOrderBy={handleToggleOrderBy}
           orderBy={orderBy}
           onDeleteContact={handleDeleteContact}
