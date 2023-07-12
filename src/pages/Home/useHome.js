@@ -16,13 +16,16 @@ export default function useHome() {
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [isPending, setTransitions] = useTransition();
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (signal) => {
     try {
-      const contactsList = await ContactService.listContacts(orderBy);
+      const contactsList = await ContactService.listContacts(orderBy, signal);
       setHasError(false);
       setContacts(contactsList);
       setFilteredContacts(contactsList);
-    } catch {
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        return;
+      }
       setHasError(true);
       setContacts([]);
     } finally {
@@ -31,8 +34,13 @@ export default function useHome() {
   }, [orderBy]);
 
   useEffect(() => {
+    const controller = new AbortController();
     setIsLoading(true);
-    loadData();
+    loadData(controller.signal);
+
+    return () => {
+      controller.abort();
+    };
   }, [loadData]);
 
   const handleToggleOrderBy = useCallback(() => (setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'))), []);
