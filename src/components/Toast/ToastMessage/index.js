@@ -69,4 +69,3 @@ function ToastMessage({
 export default memo(ToastMessage);
 
 ToastMessage.propTypes = propTypes;
-ToastMessage.defaultProps = {};

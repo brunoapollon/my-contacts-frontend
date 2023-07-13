@@ -17,15 +17,15 @@ const propTypes = {
 };
 
 export default function Modal({
-  danger,
+  danger = false,
   title,
   children,
-  cancelLabel,
-  confirmLabel,
+  cancelLabel = 'Cancelar',
+  confirmLabel = 'Confirmar',
   onCancel,
   onConfirm,
   isVisible,
-  isLoading,
+  isLoading = false,
 }) {
   const { animetedElementRef, shouldRender } = useAnimatedUnmount(isVisible);
 
@@ -62,9 +62,3 @@ export default function Modal({
 }
 
 Modal.propTypes = propTypes;
-Modal.defaultProps = {
-  danger: false,
-  isLoading: false,
-  cancelLabel: 'Cancelar',
-  confirmLabel: 'Confirmar',
-};

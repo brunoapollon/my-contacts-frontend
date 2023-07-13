@@ -6,7 +6,7 @@ const propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default function ReactPortal({ containerId, children }) {
+export default function ReactPortal({ containerId = 'portal-root', children }) {
   let container = document.getElementById(containerId);
 
   if (!container) {

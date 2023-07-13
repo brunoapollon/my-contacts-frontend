@@ -13,10 +13,10 @@ const propTypes = {
 
 export default function Button({
   children,
-  isLoading,
-  type,
-  disabled,
-  danger,
+  isLoading = false,
+  type = 'button',
+  disabled = false,
+  danger = false,
   onClick,
 }) {
   return (
@@ -27,10 +27,3 @@ export default function Button({
 }
 
 Button.propTypes = propTypes;
-Button.defaultProps = {
-  isLoading: false,
-  type: 'button',
-  disabled: false,
-  danger: false,
-  onClick: undefined,
-};

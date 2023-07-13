@@ -40,6 +40,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'class-methods-use-this': 'off',
     'react/jsx-no-bind': 'off',
+    'react/require-default-props': 'off',
     'no-empty': ['error', { allowEmptyCatch: true }],
   },
 };

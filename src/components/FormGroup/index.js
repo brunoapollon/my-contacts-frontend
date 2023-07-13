@@ -8,7 +8,7 @@ const propTypes = {
   isLoading: PropTypes.bool,
 };
 
-export default function FormGroup({ children, error, isLoading }) {
+export default function FormGroup({ children, error = null, isLoading = false }) {
   return (
     <Container>
       <div className="form-item">
@@ -25,7 +25,3 @@ export default function FormGroup({ children, error, isLoading }) {
 }
 
 FormGroup.propTypes = propTypes;
-FormGroup.defaultProps = {
-  error: null,
-  isLoading: false,
-};
